@@ -1,0 +1,47 @@
+<svg id="main" class="background" pointer-events="visible">
+  
+  <defs>
+    <symbol id="stats" apply-style="at-use">
+      <arc id="bg" class="stats stats-bg inner" />
+      <arc id="bg" class="stats stats-bg outer" />
+      <arc id="stats" class="stats stats-value  inner" />
+      <arc id="stats" class="stats stats-value outer" />
+    </symbol>
+  </defs>
+  
+  <svg id="stats-section">
+    <circle id="hr-bg"/>
+    
+    <!-- steps -->
+    <use id="steps" href="#stats">
+      <image id="steps-img" /> 
+      <g transform="translate(50%-60, 50%-40) rotate(-45)">
+        <text id="steps-label" class="stats-text"/>
+        <text id="steps-to-goal-label" class="stats-text"/>
+      </g>
+    </use>
+    
+    <!-- calories -->
+    <use id="cals" href="#stats">
+      <image id="cals-img" /> 
+      <text id="cals-label" class="cals-text stats-text"/>
+      <text id="cals-to-goal-label" class="cals-text stats-text"/>
+    </use>
+    
+    <!-- zonemins // currently active mins that will be updated to zonemins as soon as they are availabel in the sdk -->
+    <use id="zonemins" href="#stats">
+      <image id="zonemins-img" />
+      <g transform="translate(50%+60, 50%-40) rotate(45)">
+        <text id="zonemins-label" class="stats-text"/>
+        <text id="zonemins-to-goal-label" class="stats-text"/>
+      </g>
+    </use>
+    
+  </svg>
+  
+  <svg id="clock-section">
+    <text id="time" />
+    <text id="date" />
+  </svg>
+  
+</svg>
