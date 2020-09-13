@@ -103,6 +103,7 @@ image {
   y: 4;
   height: 54;
   width: 54;
+  display: inline;
 }
 
 #hr-img {
