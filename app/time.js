@@ -20,6 +20,6 @@ export function updateTime(newDate) {
   let mins = util.zeroPad(newDate.getMinutes());
   timeHandle.text = `${hours}:${mins}`;
 
-  let todayDate = newDate.getDate();
+  let todayDate = util.zeroPad(newDate.getDate());
   dateHandle.text = `${days[newDate.getDay()]} ${todayDate}`;
 }

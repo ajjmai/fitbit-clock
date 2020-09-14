@@ -1,7 +1,7 @@
 import document from "document";
 import { battery } from "power";
 
-import { colors } from "./common.js";
+import { colors } from "../common/utils";
 
 const batteryHandle = document.getElementById("battery-indicator");
 

@@ -2,22 +2,17 @@ import document from "document";
 import { me as appbit } from "appbit";
 import { user } from "user-profile";
 import { HeartRateSensor } from "heart-rate";
+import { BodyPresenceSensor } from "body-presence";
 import { display } from "display";
+import { colors } from "../common/utils";
 
 export const hrHandle = document.getElementById("hr");
+const body = new BodyPresenceSensor();
 const hrLabelHandle = document.getElementById("hr-label");
 const hrImgHandle = document.getElementById("hr-img");
+const hrAnimationHandle = document.getElementById("hr-animation");
 
 export const hrm = new HeartRateSensor();
-
-const colors = {
-  white: "white",
-  black: "black",
-  zonemins: "#02c39a",
-  peak: "#d7263d",
-  cardio: "#e66227",
-  fatBurn: "#ffc501",
-};
 
 // Update heartrate
 export function updateHeartRate() {
@@ -26,6 +21,7 @@ export function updateHeartRate() {
       if (hrm.heartRate && appbit.permissions.granted("access_user_profile")) {
         let heartRate = hrm.heartRate;
         hrLabelHandle.text = heartRate;
+        hrAnimationHandle.animate("enable");
 
         if (user.heartRateZone(heartRate) == "out-of-range") {
           hrImgHandle.style.fill = colors.white;
@@ -41,20 +37,42 @@ export function updateHeartRate() {
           hrLabelHandle.style.fill = colors.white;
         }
       } else {
-        hrHandle.style.display = "none";
+        hrImgHandle.style.fill = colors.white;
+        hrLabelHandle.style.fill = colors.black;
+        hrLabelHandle.text = "--";
+
       }
     });
 
+    if (BodyPresenceSensor) {
+      body.addEventListener("reading", () => {
+        if (!body.present) {
+          hideHr();
+        } else {
+          showHr();
+        }
+      });
+      body.start();
+    }
+
     display.addEventListener("change", () => {
       if (display.on) {
-        hrm.start();
-        hrHandle.style.display = "inline";
+        showHr();
       } else {
-        hrm.stop();
-        hrHandle.style.display = "none";
+        hideHr();
       }
     });
-    hrm.start();
-    hrHandle.style.display = "inline";
+    showHr();
   }
+}
+
+export function hideHr() {
+  hrm.stop();
+  hrAnimationHandle.animate("disable");
+  hrHandle.style.display = "none";
+}
+
+export function showHr() {
+  hrm.start();
+  hrHandle.style.display = "inline";
 }

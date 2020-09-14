@@ -9,8 +9,6 @@ import * as stats from "./stats.js";
 // Update the clock every second
 clock.granularity = "seconds";
 
-display.onchange = changeState();
-
 // Update elements every tick with the current time
 clock.ontick = (evt) => {
   let newDate = evt.date;
@@ -19,13 +17,3 @@ clock.ontick = (evt) => {
   hr.updateHeartRate();
   battery.updateBatteryIndicator();
 };
-
-function changeState() {
-  if (display.on) {
-    hr.hrm.start();
-    hr.hrHandle.style.display = "inline";
-  } else {
-    hr.hrm.stop();
-    hr.hrHandle.style.display = "none";
-  }
-}

@@ -2,7 +2,7 @@ import document from "document";
 import { me as appbit } from "appbit";
 import { goals, today } from "user-activity";
 
-import { colors } from "./common.js";
+import { colors } from "../common/utils";
 
 let tapEventCounter = 0;
 
